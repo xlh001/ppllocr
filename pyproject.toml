@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
     {name = "Liveless", email = "zhongxiaoma2027@gmail.com"},
-    {name = "Zjyjoe", email = "309682363@qq.com"},
+    {name = "Zjyjoe", email = "309682363@qq.com"}
 ]
 dependencies = [
     "numpy",
