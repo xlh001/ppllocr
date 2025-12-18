@@ -5,7 +5,7 @@ import onnxruntime as ort
 import string
 
 # 字符集 (必须与训练一致)
-SPECIFIC_SYMBOLS = "/*%@#"
+SPECIFIC_SYMBOLS = "/*%@#+-()"
 CHARACTERS = string.digits + string.ascii_letters + SPECIFIC_SYMBOLS
 
 class OCR:
@@ -14,11 +14,11 @@ class OCR:
         if model_path is None:
             current_dir = os.path.dirname(os.path.abspath(__file__))
             # 注意：这里假设文件名是 ppllocr_v1.onnx，如果你的文件名不同请修改
-            model_path = os.path.join(current_dir, "assets", "ppllocr_v1.onnx")
+            model_path = os.path.join(current_dir, "assets", "ppllocr_betav2.onnx")
         
         if not os.path.exists(model_path):
             # 尝试查找旧文件名兼容
-            fallback_path = os.path.join(current_dir, "assets", "yolo_ocr.onnx")
+            fallback_path = os.path.join(current_dir, "assets", "ppllocr_v1.onnx")
             if os.path.exists(fallback_path):
                 model_path = fallback_path
             else:
