@@ -5,8 +5,7 @@ import onnxruntime as ort
 import string
 
 # 字符集 (必须与训练一致)
-SPECIFIC_SYMBOLS = "/*%@#+-()"
-CHARACTERS = string.digits + string.ascii_letters + SPECIFIC_SYMBOLS
+CHARACTERS = ['#', '%', '*', '+', '-', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '=', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 class OCR:
     def __init__(self, model_path=None, use_gpu=False):
@@ -14,15 +13,10 @@ class OCR:
         if model_path is None:
             current_dir = os.path.dirname(os.path.abspath(__file__))
             # 注意：这里假设文件名是 ppllocr_v1.onnx，如果你的文件名不同请修改
-            model_path = os.path.join(current_dir, "assets", "ppllocr_betav2.onnx")
+            model_path = os.path.join(current_dir, "assets", "ppllocr_betav2.2.onnx")
         
         if not os.path.exists(model_path):
-            # 尝试查找旧文件名兼容
-            fallback_path = os.path.join(current_dir, "assets", "ppllocr_v1.onnx")
-            if os.path.exists(fallback_path):
-                model_path = fallback_path
-            else:
-                raise FileNotFoundError(f"Model file not found: {model_path}")
+            raise FileNotFoundError(f"Model file not found: {model_path}")
 
         self.class_names = CHARACTERS
         providers = ['CUDAExecutionProvider', 'CPUExecutionProvider'] if use_gpu else ['CPUExecutionProvider']
